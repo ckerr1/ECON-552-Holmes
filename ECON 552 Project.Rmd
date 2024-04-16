@@ -1,0 +1,129 @@
+---
+title: "ECON 552 Project"
+author: "C.A. Kerr"
+date: "2024-04-16"
+output: html_document
+---
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+#Import CMS data
+CMS14 <- read.csv('C:/Users/kerrf/Downloads/Medicare Part D Prescribers - by Provider and Drug-002/Medicare Part D Prescribers - by Provider and Drug/2014/MUP_DPR_RY21_P04_V10_DY14_NPIBN_1.csv')
+CMS14_States <- CMS14 %>%
+  filter(Prscrbr_State_FIPS == 39 |
+         Prscrbr_State_FIPS == 54)
+
+CMS14i <- CMS14_States %>% 
+  filter(grepl('insulin|Insulin', Gnrc_Name) &
+         !grepl('Needles|Needle,insulin,', Gnrc_Name)
+         )
+
+CMS14i$year = 2014
+
+CMS15 <- read.csv('C:/Users/kerrf/Downloads/Medicare Part D Prescribers - by Provider and Drug-002/Medicare Part D Prescribers - by Provider and Drug/2015/MUP_DPR_RY21_P04_V10_DY15_NPIBN_1.csv')
+CMS15_States <- CMS15 %>%
+  filter(Prscrbr_State_FIPS == 39 |
+         Prscrbr_State_FIPS == 54)
+
+CMS15i <- CMS15_States %>% 
+  filter(grepl('insulin|Insulin', Gnrc_Name) &
+         !grepl('Needles|Needle,insulin,', Gnrc_Name)
+         )
+
+CMS15i$year = 2015
+
+CMS16 <- read.csv('C:/Users/kerrf/Downloads/Medicare Part D Prescribers - by Provider and Drug-002/Medicare Part D Prescribers - by Provider and Drug/2016/MUP_DPR_RY21_P04_V10_DY16_NPIBN_0.csv')
+CMS16_States <- CMS16 %>%
+  filter(Prscrbr_State_FIPS == 39 |
+         Prscrbr_State_FIPS == 54)
+
+CMS16i <- CMS16_States %>% 
+  filter(grepl('insulin|Insulin', Gnrc_Name) &
+         !grepl('Needles|Needle,insulin,', Gnrc_Name)
+         )
+
+CMS16i$year = 2016
+
+CMS17 <- read.csv('C:/Users/kerrf/Downloads/Medicare Part D Prescribers - by Provider and Drug-002/Medicare Part D Prescribers - by Provider and Drug/2017/MUP_DPR_RY21_P04_V10_DY17_NPIBN_1.csv')
+CMS17_States <- CMS17 %>%
+  filter(Prscrbr_State_FIPS == 39 |
+         Prscrbr_State_FIPS == 54)
+
+CMS17i <- CMS17_States %>% 
+  filter(grepl('insulin|Insulin', Gnrc_Name) &
+         !grepl('Needles|Needle,insulin,', Gnrc_Name)
+         )
+
+CMS17i$year = 2017
+
+CMS18 <- read.csv('C:/Users/kerrf/Downloads/Medicare Part D Prescribers - by Provider and Drug-002/Medicare Part D Prescribers - by Provider and Drug/2018/MUP_DPR_RY21_P04_V10_DY18_NPIBN_0.csv')
+CMS18_States <- CMS18 %>%
+  filter(Prscrbr_State_FIPS == 39 |
+         Prscrbr_State_FIPS == 54)
+
+CMS18i <- CMS18_States %>% 
+  filter(grepl('insulin|Insulin', Gnrc_Name) &
+         !grepl('Needles|Needle,insulin,', Gnrc_Name)
+         )
+
+CMS18i$year = 2018
+
+CMS19 <- read.csv('C:/Users/kerrf/Downloads/Medicare Part D Prescribers - by Provider and Drug-002/Medicare Part D Prescribers - by Provider and Drug/2019/MUP_DPR_RY21_P04_V10_DY19_NPIBN_1.csv')
+CMS19_States <- CMS19 %>%
+  filter(Prscrbr_State_FIPS == 39 |
+         Prscrbr_State_FIPS == 54)
+
+CMS19i <- CMS19_States %>% 
+  filter(grepl('insulin|Insulin', Gnrc_Name) &
+         !grepl('Needles|Needle,insulin,', Gnrc_Name)
+         )
+
+CMS19i$year = 2019
+
+CMS20 <- read.csv('C:/Users/kerrf/Downloads/Medicare Part D Prescribers - by Provider and Drug-002/Medicare Part D Prescribers - by Provider and Drug/2020/MUP_DPR_RY22_P04_V10_DY20_NPIBN_0.csv')
+CMS20_States <- CMS20 %>%
+  filter(Prscrbr_State_FIPS == 39 |
+         Prscrbr_State_FIPS == 54)
+
+CMS20i <- CMS20_States %>% 
+  filter(grepl('insulin|Insulin', Gnrc_Name) &
+         !grepl('Needles|Needle,insulin,', Gnrc_Name)
+         )
+
+CMS20i$year = 2020
+
+CMS21 <- read.csv('C:/Users/kerrf/Downloads/Medicare Part D Prescribers - by Provider and Drug-002/Medicare Part D Prescribers - by Provider and Drug/2021/MUP_DPR_RY23_P04_V10_DY21_NPIBN.csv')
+CMS21_States <- CMS21 %>%
+  filter(Prscrbr_State_FIPS == 39 |
+         Prscrbr_State_FIPS == 54)
+
+CMS21i <- CMS21_States %>% 
+  filter(grepl('insulin|Insulin', Gnrc_Name) &
+         !grepl('Needles|Needle,insulin,', Gnrc_Name)
+         )
+
+CMS21i$year = 2021
+
+
+```
+
+```{r}
+#Merge CMS data
+
+CMS1421i <- bind_rows(
+  CMS14i,
+  CMS15i,
+  CMS16i,
+  CMS17i,
+  CMS18i,
+  CMS19i,
+  CMS20i,
+  CMS21i
+)
+
+write.csv(CMS1421i, "CMS1421i_552")
+```
+
